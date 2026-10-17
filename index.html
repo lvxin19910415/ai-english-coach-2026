@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1677FF">
+<meta name="description" content="每天3分钟，和AI英语教练学英语">
+<link rel="manifest" href="manifest.json">
+<title>AI 英语教练</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#edf5ff;color:#10213b;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.app{max-width:520px;margin:auto;min-height:100vh;padding:18px 16px 90px;background:linear-gradient(#eaf4ff,#fff)}
+.top{display:flex;justify-content:space-between;align-items:center}.brand{font-size:20px;font-weight:850}.day{font-size:12px;color:#64748b}
+.hero{margin-top:18px;padding:22px;border-radius:28px;background:linear-gradient(135deg,#fff,#dcebff);box-shadow:0 12px 35px #aabed733}
+.badge{font-size:12px;color:#1677ff;font-weight:800}.phrase{font-size:29px;line-height:1.12;font-weight:900;margin:13px 0 7px}.cn{color:#475569}
+.row{display:flex;gap:9px;margin-top:18px}.btn{border:0;border-radius:15px;padding:12px 13px;font-weight:800;background:#fff;color:#17365f}.primary{background:#1677ff;color:#fff}
+.card{margin-top:15px;background:#fff;border-radius:22px;padding:18px;box-shadow:0 8px 25px #9fb4ce22}.card h3{margin:0 0 12px}.word{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #edf2f7}.word:last-child{border:0}.en{font-weight:800}.meaning{font-size:13px;color:#64748b;margin-top:2px}
+.progress{height:8px;background:#e8eef6;border-radius:99px;overflow:hidden}.bar{height:100%;width:40%;background:#1677ff}
+.install{display:none}.install.show{display:block}.quiz .option{padding:13px;border:1px solid #dbe4ef;border-radius:14px;margin:8px 0}.good{background:#effdf4;border-color:#22c55e!important}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:#fff;border-top:1px solid #e5eaf0;display:flex;justify-content:space-around;padding:11px 0 calc(10px + env(safe-area-inset-bottom));font-size:12px;color:#64748b}.active{color:#1677ff;font-weight:800}
+</style>
+</head>
+<body>
+<div class="app">
+ <div class="top"><div class="brand">🤖 AI 英语教练</div><div class="day">Day 01 · 3 min</div></div>
+ <section class="hero">
+  <div class="badge">TODAY'S PHRASE</div>
+  <div class="phrase">I'm getting used to it.</div>
+  <div class="cn">我正在慢慢习惯它。</div>
+  <div class="row">
+   <button class="btn" onclick="speak()">🔊 听发音</button>
+   <button class="btn" onclick="alert('请跟读：I’m getting used to it.')">🎤 跟读</button>
+   <button class="btn primary" onclick="document.querySelector('#words').scrollIntoView({behavior:'smooth'})">开始学习 →</button>
+  </div>
+ </section>
+
+ <section class="card install" id="installBox">
+  <h3>📲 添加到手机桌面</h3>
+  <p style="font-size:14px;color:#64748b">把 AI 英语教练放到桌面，每天点一下就能学习。</p>
+  <button class="btn primary" onclick="installApp()">＋ 添加到桌面</button>
+ </section>
+
+ <section class="card">
+  <h3>🌱 今日进度</h3>
+  <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"><span>已完成</span><b>2 / 5</b></div>
+  <div class="progress"><div class="bar"></div></div>
+ </section>
+
+ <section class="card" id="words">
+  <h3>📚 今日 5 个高频词</h3>
+  <div class="word"><div><div class="en">get used to</div><div class="meaning">适应，习惯</div></div><span>🔊</span></div>
+  <div class="word"><div><div class="en">opportunity</div><div class="meaning">机会</div></div><span>🔊</span></div>
+  <div class="word"><div><div class="en">challenge</div><div class="meaning">挑战</div></div><span>🔊</span></div>
+  <div class="word"><div><div class="en">improve</div><div class="meaning">提高，改善</div></div><span>🔊</span></div>
+  <div class="word"><div><div class="en">look forward to</div><div class="meaning">期待，盼望</div></div><span>🔊</span></div>
+ </section>
+
+ <section class="card">
+  <h3>💬 真实生活</h3>
+  <p><b>I'm getting used to it.</b><br><span class="cn">我正在慢慢习惯它。</span></p>
+  <p><b>It takes time to get used to a new environment.</b><br><span class="cn">适应新环境需要时间。</span></p>
+ </section>
+
+ <section class="card quiz">
+  <h3>🧠 小测验</h3><p>“我正在慢慢习惯它。”怎么说？</p>
+  <div class="option">A. I like it.</div>
+  <div class="option good">B. I'm getting used to it. ✓</div>
+  <div class="option">C. I need it.</div>
+ </section>
+</div>
+<div class="nav"><span class="active">⌂<br>首页</span><span>▣<br>学习记录</span><span>◎<br>我的</span></div>
+<script>
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;document.querySelector('#installBox').classList.add('show')});
+async function installApp(){if(!deferredPrompt){alert('如果没有出现安装按钮，请在浏览器菜单中选择“添加到主屏幕”。');return}deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}
+function speak(){if('speechSynthesis' in window){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance("I'm getting used to it.");u.lang="en-US";speechSynthesis.speak(u)}}
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+</script>
+</body>
+</html>
