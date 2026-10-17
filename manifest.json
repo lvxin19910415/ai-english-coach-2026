@@ -1,12 +1,15 @@
 {
-  "name":"AI 英语教练",
-  "short_name":"AI英语教练",
-  "start_url":"./",
-  "display":"standalone",
-  "background_color":"#ffffff",
-  "theme_color":"#1677FF",
-  "lang":"zh-CN",
-  "icons":[
-    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  "name": "AI英语教练",
+  "short_name": "AI英语教练",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
   ]
 }
